@@ -9,31 +9,45 @@ const Form = () =>{
         phoneType: "",
         staff: "",
         bio: "",
-        notifications:
+        notifications:""
     })
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log({user})
+    }
+
+    const handleChange = (incomingKey) => {
+        return (e) => {
+            const newObj = Object.assign({}, user, {[incomingKey]: e.target.value})
+            setUser(newObj)
+        }
+    }
+    debugger
     return (
-        <form>
-            <label for="name">Name</label>
-            <input id="name"></input>
+        <form className="form" onSubmit={handleSubmit}>
+            <label htmlFor="name">Name</label>
+            <input id="name" type="text" onChange={handleChange("name")} value={user.name}></input>
 
-            <label for="">Email</label>
-            <input id="email"></input>
+            <label htmlFor="">Email</label>
+            <input id="email" onChange={handleChange("email")} value={user.email}></input>
 
-            <label for="phoneNumber">Phone Number</label>
-            <input id="phoneNumber"></input>
+            <label htmlFor="phoneNumber">Phone Number</label>
+            <input id="phoneNumber" onChange={handleChange("phoneNumber")} value={user.phoneNumber}></input>
 
-            <label for="phoneType">Phone Type</label>
-            <input id="phoneType"></input>
+            <label htmlFor="phoneType">Phone Type</label>
+            <input id="phoneType" onChange={handleChange("phoneType")} value={user.phoneType}></input>
 
-            <label for="staff">Staff</label>
-            <input id="staff"></input>
+            <label htmlFor="staff">Staff</label>
+            <input id="staff" onChange={handleChange("staff")} value={user.staff}></input>
 
-            <label for="bio">Bio</label>
-            <input id="bio"></input>
+            <label htmlFor="bio">Bio</label>
+            <input id="bio" onChange={handleChange("bio")} value={user.bio}></input>
 
-            <label for="notifications">Notifications</label>
-            <input id="notification"></input>
+            <label htmlFor="notifications">Notifications</label>
+            <input id="notification" onChange={handleChange("notifications")} value={user.notifications}></input>
+
+            <button></button>
         </form>
     )
 }
