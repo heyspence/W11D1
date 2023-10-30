@@ -9,7 +9,7 @@ const Form = () =>{
         phoneType: "",
         staff: "",
         bio: "",
-        notifications:""
+        notifications: false
     })
 
     const handleSubmit = (e) => {
@@ -18,10 +18,14 @@ const Form = () =>{
     }
 
     const handleChange = (incomingKey) => {
+        
         return (e) => {
-            const newObj = Object.assign({}, user, {[incomingKey]: e.target.value})
+            const newValue = incomingKey === "notifications" ? { [incomingKey]: e.target.checked } : { [incomingKey]: e.target.value }
+            const newObj = Object.assign({}, user, newValue)
+       
             setUser(newObj)
         }
+        
     }
 
 
@@ -43,16 +47,19 @@ const Form = () =>{
                 <option value="mobile" selected={user.phoneType === "mobile"}>Mobile</option>
             </select>
 
-            <label htmlFor="staff">Staff</label>
-            <input id="staff" type="radio" onChange={handleChange("staff")} value={user.staff}></input>
+            <label htmlFor="instructor">Instructor</label>
+            <input id="instructor" type="radio" name="staff" onChange={handleChange("staff")} value="instructor"></input>
+
+            <label htmlFor="student">Student</label>
+            <input id="student" type="radio" name="staff" onChange={handleChange("staff")} value="student"></input>
 
             <label htmlFor="bio">Bio</label>
             <input id="bio" type="textarea" onChange={handleChange("bio")} value={user.bio}></input>
 
             <label htmlFor="notifications">Notifications</label>
-            <input id="notification" type="checkbox" onChange={handleChange("notifications")} value={user.notifications}></input>
+            <input id="notification" type="checkbox" onChange={handleChange("notifications")} checked={user.notifcations}></input>
 
-            <button></button>
+            <input type="submit" value="Submit"/>
         </form>
     )
 }
