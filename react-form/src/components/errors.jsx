@@ -1,6 +1,14 @@
 const Errors = (props) => {
-    // let errors = []
+  
+    console.log(props)
+    const values = Object.values(props.errors)
+    const errorMessages = values.map((error) => {
+        <li>{error}</li>
+    })
 
-    // if(props.name) errors.push("Name")
-    return ""
+    return (
+        errorMessages
+    )
 }
+
+export default Errors

@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import Errors from "./errors"
 
 const Form = () =>{
     const [user, setUser] = useState({
@@ -16,14 +16,16 @@ const Form = () =>{
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log({user})
-        console.log({errors})
+        // console.log({user})
+        // console.log({errors})
+        const newErrors = [];
 
-        if(user.name.length === 0) setErrors(errors.push("Name cannot be empty"))
-        if(user.email.length === 0) setErrors(errors.push("Email cannot be empty"))
-        if(!user.email.includes("@")) setErrors(errors.push("Please provide a valid email"))
-        if(!user.email.includes(".")) setErrors(errors.push("Please provide a valid email"))
+        if(user.name.length === 0) newErrors.push("Name cannot be empty")
+        if(user.email.length === 0) newErrors.push("Email cannot be empty")
+        if(!user.email.includes("@")) newErrors.push("Please provide a valid email")
+        if(!user.email.includes(".")) newErrors.push("Please provide a valid email")
         
+        setErrors(newErrors)
         // if(user.phoneNumber){
         //     let valid = true
         //     user.phoneNumber.forEach((number)=>{
@@ -47,6 +49,7 @@ const Form = () =>{
 
 
     return (
+        <>
         <form className="form" onSubmit={handleSubmit}>
             <label htmlFor="name">Name</label>
             <input id="name" type="text" onChange={handleChange("name")} value={user.name}></input>
@@ -85,6 +88,8 @@ const Form = () =>{
 
             <input type="submit" value="Submit"/>
         </form>
+        <Errors errors={errors}/>
+        </>
     )
 }
 
