@@ -12,9 +12,27 @@ const Form = () =>{
         notifications: false
     })
 
+    const [errors, setErrors] = useState([])
+
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log({user})
+        console.log({errors})
+
+        if(user.name.length === 0) setErrors(errors.push("Name cannot be empty"))
+        if(user.email.length === 0) setErrors(errors.push("Email cannot be empty"))
+        if(!user.email.includes("@")) setErrors(errors.push("Please provide a valid email"))
+        if(!user.email.includes(".")) setErrors(errors.push("Please provide a valid email"))
+        
+        // if(user.phoneNumber){
+        //     let valid = true
+        //     user.phoneNumber.forEach((number)=>{
+        //         if(!parseInt(number).isInteger){
+        //             valid = false
+        //         }
+        //     })
+        //     console.log(valid)
+        // }
     }
 
     const handleChange = (incomingKey) => {
@@ -24,8 +42,7 @@ const Form = () =>{
             const newObj = Object.assign({}, user, newValue)
        
             setUser(newObj)
-        }
-        
+        } 
     }
 
 
@@ -33,31 +50,38 @@ const Form = () =>{
         <form className="form" onSubmit={handleSubmit}>
             <label htmlFor="name">Name</label>
             <input id="name" type="text" onChange={handleChange("name")} value={user.name}></input>
+            <br/>
 
             <label htmlFor="">Email</label>
             <input id="email" type="text" onChange={handleChange("email")} value={user.email}></input>
+            <br/>
 
             <label htmlFor="phoneNumber">Phone Number</label>
             <input id="phoneNumber" type="text" onChange={handleChange("phoneNumber")} value={user.phoneNumber}></input>
+            <br/>
 
             <label htmlFor="phoneType">Phone Type</label>
             <select id="phoneType" onChange={handleChange("phoneType")}>
-                <option value="home" selected={user.phoneType === "home"}>Home</option>
-                <option value="work" selected={user.phoneType === "work"}>Work</option>
-                <option value="mobile" selected={user.phoneType === "mobile"}>Mobile</option>
+                <option value="home" defaultValue={user.phoneType === "home"}>Home</option>
+                <option value="work" defaultValue={user.phoneType === "work"}>Work</option>
+                <option value="mobile" defaultValue={user.phoneType === "mobile"}>Mobile</option>
             </select>
+            <br/>
 
             <label htmlFor="instructor">Instructor</label>
             <input id="instructor" type="radio" name="staff" onChange={handleChange("staff")} value="instructor"></input>
 
             <label htmlFor="student">Student</label>
             <input id="student" type="radio" name="staff" onChange={handleChange("staff")} value="student"></input>
+            <br/>
 
             <label htmlFor="bio">Bio</label>
             <input id="bio" type="textarea" onChange={handleChange("bio")} value={user.bio}></input>
+            <br/>
 
             <label htmlFor="notifications">Notifications</label>
             <input id="notification" type="checkbox" onChange={handleChange("notifications")} checked={user.notifcations}></input>
+            <br/>
 
             <input type="submit" value="Submit"/>
         </form>
